@@ -141,7 +141,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   https://github.com/KACHAPPILLY2021/AR_tag_superimposed.git
+   git clone https://github.com/KACHAPPILLY2021/AR_tag_superimposed.git
    ```
 2. Open the folder ```AR_tag_superimposed``` in IDE or navigate using terminal
    ```sh
