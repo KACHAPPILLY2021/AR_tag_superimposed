@@ -23,19 +23,22 @@
       </ul>
     </li>
     <li>
-      <a href="#documentation">Documentation</a>
+      <a href="#approach">Approach</a>
       <ul>
-        <li><a href="#report">Report</a></li>
+        <li><a href="#image-superimposition-pipeline">Image Superimposition Pipeline</a></li>
+        <li><a href="#3d-cube-pipeline">3D Cube Pipeline</a></li>
       </ul>
+    </li>
+    <li>
+      <a href="#report">Report</a>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -48,14 +51,9 @@
 
 
 
-Implemented Depth First Search algorithm using Object Oriented Programming in C++ and visualized its output using Micromouse simulator.
+This repository contains code to detect a custom April tag which is a fiducial marker. The program detects the April Tag using Fast Fourier Transform, detects its corner using Shi Thomasi corner detection. It utilizes the concepts of homography to superimpose an image over the detected April Tag. A virtual cube is also drawn over the tag using the concpets of projection and calibration matrices. Note that ```no inbuilt OpenCV``` functions were used except for FFT and Shi Thomasi.
 
-Summary of tasks achieved:
-* Implemented DFS using a representation of the maze(mouse has no prior knowledge of walls except the boundaries.)
-* Generated path from current position to goal using the representation of the maze.
-* Moved the mouse using API interface commands and updated the walls as detected.
-* The robot halted when the mouse hit a wall, and DFS was employed to recalculate the path using prior wall data.
-* The described steps were repeated until the goal position was achieved.
+The problem statement can be found here. [Problem_Statement](https://github.com/KACHAPPILLY2021/AR_tag_superimposed/blob/main/problem_statement.pdf)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -80,6 +78,9 @@ https://user-images.githubusercontent.com/90359587/224573981-d0489881-6646-47f3-
 </div>
 
 https://user-images.githubusercontent.com/90359587/224574177-360f9657-d45e-471f-b04c-9c77705701b9.mp4
+
+[![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/37zO4EtMOL0)
+
 <div align="center">
 
 
@@ -89,22 +90,38 @@ https://user-images.githubusercontent.com/90359587/224574177-360f9657-d45e-471f-
 </div>
 
 https://user-images.githubusercontent.com/90359587/224574290-bb4876b4-7ba6-49e1-96df-f44d76b1119e.mp4
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- Document and Reports -->
-## Documentation
-
-The documentation for this project can be found here.
+[![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/pXbqfZ4dJ60)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-### Report
+<!-- Approach -->
+## Approach
 
-Detailed decription for this project can be found in this [![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/9MUCtm4vwkQ)
+Brief explanation of the approaches followed for superimposing Testudo image and 3D cube over detected April tag.
+
+### Image Superimposition Pipeline
+* The corners of the April Tag were detected using [Shi-Thomasi](https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_shi_tomasi/py_shi_tomasi.html) corner detector.
+* The orientation of the April Tag in the video-frame was determined.
+* Homography matrix was computed between the detected corners and the Testudo image and ```inverse warping``` was performed to set the value of the pixels in the frame to that of the testudo image. This eliminates the "holes" that may arise if the forward warping was performed.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 3D Cube Pipeline
+The implemented augmented reality application utilizes tracking and pose estimation based on projective transformation.
+
+* Initially, the AprilTag is identified and the position of its corners are obtained across multiple frames. 
+*  Subsequently, homography estimation is utilized to calculate the 3D pose of a set of four points in the real world. Instead of simply superimposing an image as done in the first step, a 3D object is rendered in a frame.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- Report -->
+## Report
+
+Detailed decription of the pipeline and challenges can be found here. [Report](https://github.com/KACHAPPILLY2021/AR_tag_superimposed/blob/main/ENPM_673_P1_report.pdf)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -115,71 +132,41 @@ These are the instructions to get started on the project.
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
-* atleast C++17
+* Python 3.6 or above
+* Libraries - OpenCV, Numpy
 * OS - Linux (tested)
 
 
-### Installation
+### Usage
 
-Installing the micromouse simulator and running the code.
-
-1. Make directory
+1. Clone the repo
    ```sh
-   mkdir ~/RWA2_simulator
+   https://github.com/KACHAPPILLY2021/AR_tag_superimposed.git
    ```
-2. Clone the repos
+2. Open the folder ```AR_tag_superimposed``` in IDE or navigate using terminal
    ```sh
-   cd ∼ /RWA2_simulator
+   cd ∼ /AR_tag_superimposed
    ```
+3. To terminate any program while output is being generated press ```Q```.
+4. To detect edges of the April Tag using FFT:
    ```sh
-   git clone https://github.com/mackorone/mms.git
+   python3 1_a.py
    ```
+5. To find the orientation of the April Tag by decoding it:
    ```sh
-   git clone https://github.com/micromouseonline/mazefiles.git
+   python3 1_b.py
    ```
+6. To superimpose an image over the April Tag:
    ```sh
-   git clone https://github.com/KACHAPPILLY2021/maze_solving_algorithm.git
+   python3 2_a.py
    ```
-3. Compile Simulator
+7. To superimpose an 3D over the April Tag:
    ```sh
-   sudo apt-get install qt5-default
+   python3 2_b.py
    ```
-   ```sh
-   cd mms/src
-   ```
-   ```sh
-   qmake && make
-   ```
-
-
+   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-How to start simulator and use this DFS code in it.
-1. Start simulator
-   ```sh
-   cd ∼ /RWA2_simulator/mms/bin
-   ```
-   ```sh
-   ./mms
-   ```
-2. Choose any maze type and Click on the + button as shown in figure.
-
-3. **Directory**: Click Browse and navigate to 'maze_solving_algorithm'
-4. Enter **Build command** as:
-   ```sh
-   g++ src/main.cpp src/mouse.cpp src/node.cpp src/api.cpp
-   ```
-5. Enter **Run Command** as :
-  ```sh
-  ./a.out
-  ```
-6. Then Press **Build**, followed by **RUN** under the **Controls** Section
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
