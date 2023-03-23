@@ -51,7 +51,7 @@
 
 
 
-This repository contains code to detect a custom April tag which is a fiducial marker. The program detects the April Tag using Fast Fourier Transform, detects its corner using Shi Thomasi corner detection. It utilizes the concepts of homography to superimpose an image over the detected April Tag. A virtual cube is also drawn over the tag using the concpets of projection and calibration matrices. Note that ```no inbuilt OpenCV``` functions were used except for FFT and Shi Thomasi.
+This repository contains code to detect a custom April tag which is a fiducial marker. The program detects the April Tag using Fast Fourier Transform, detects its corner using Shi Thomasi corner detection. It utilizes the concepts of homography to superimpose an image over the detected April Tag. A virtual cube is also drawn over the tag using the concepts of projection and calibration matrices. Note that ```no inbuilt OpenCV``` functions were used except for FFT and Shi Thomasi.
 
 The problem statement can be found here. [Problem_Statement](https://github.com/KACHAPPILLY2021/AR_tag_superimposed/blob/main/problem_statement.pdf)
 
